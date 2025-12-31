@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Jobs You Applied To</h3>
+
+{% if apps|length == 0 %}
+<div class="alert alert-info">
+    You haven't applied to any jobs yet.
+</div>
+{% endif %}
+
+<ul class="list-group">
+{% for a in apps %}
+<li class="list-group-item">
+
+    <strong>{{ jobs[a.job_id].title }}</strong>
+    — {{ jobs[a.job_id].company }}
+
+    <span class="badge bg-info float-end">
+        {{ a.status }}
+    </span>
+
+</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

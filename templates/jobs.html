@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="mb-3">Search Jobs</h3>
+
+<form method="get" class="row g-2 mb-4">
+    <div class="col-md-4">
+        <input class="form-control"
+               name="search"
+               placeholder="Job title or company"
+               value="{{ request.args.get('search','') }}">
+    </div>
+
+    <div class="col-md-3">
+        <input class="form-control"
+               name="location"
+               placeholder="Location"
+               value="{{ request.args.get('location','') }}">
+    </div>
+
+    <div class="col-md-3">
+        <input class="form-control"
+               name="category"
+               placeholder="Category"
+               value="{{ request.args.get('category','') }}">
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">Search</button>
+    </div>
+</form>
+
+{% if jobs|length == 0 %}
+<div class="alert alert-warning">No jobs found.</div>
+{% endif %}
+
+<ul class="list-group">
+{% for job in jobs %}
+<li class="list-group-item">
+
+    <h5>{{ job.title }}</h5>
+
+    <p>
+        <strong>{{ job.company }}</strong>
+        | {{ job.location }}
+        | {{ job.category }}
+    </p>
+
+    <span class="badge bg-secondary">{{ job.source }}</span>
+
+    
+    {% if job.apply_type == "internal" %}
+
+        <a href="/apply/{{ job.job_id }}"
+            class="btn btn-primary btn-sm float-end ms-2">
+            Apply
+        </a>
+
+        <a href="/save_job/{{ job.job_id }}"
+            class="btn btn-outline-secondary btn-sm float-end">
+            Save
+        </a>
+
+    {% else %}
+
+        <a href="{{ job.url }}"
+           target="_blank"
+           class="btn btn-success btn-sm float-end">
+           Apply
+        </a>
+    {% endif %}
+
+</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

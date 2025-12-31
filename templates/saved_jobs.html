@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Saved Jobs</h3>
+
+{% if jobs|length == 0 %}
+<div class="alert alert-info">You have no saved jobs.</div>
+{% endif %}
+
+<ul class="list-group">
+{% for job in jobs %}
+<li class="list-group-item">
+
+    <strong>{{ job.title }}</strong> — {{ job.company }}
+
+    <div class="float-end">
+
+        <a href="/apply/{{ job.id }}"
+           class="btn btn-primary btn-sm me-2">
+           Apply
+        </a>
+
+        <a href="/unsave_job/{{ job.id }}"
+           class="btn btn-outline-danger btn-sm">
+           Remove
+        </a>
+
+    </div>
+
+</li>
+{% endfor %}
+</ul>
+
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Post Job</h3>
+
+<form method="post">
+    <input class="form-control mb-2" name="title" placeholder="Title" required>
+    <input class="form-control mb-2" name="company" placeholder="Company" required>
+    <input class="form-control mb-2" name="location" placeholder="Location" required>
+    <input class="form-control mb-2" name="salary" placeholder="Salary" required>
+    <input class="form-control mb-2" name="category" placeholder="Category" required>
+    <textarea class="form-control mb-2" name="description" placeholder="Description" required></textarea>
+
+    <input class="form-control mb-2" name="contact_email" placeholder="Contact Email" required>
+    <input class="form-control mb-2" name="contact_phone" placeholder="Contact Phone" required>
+
+    <button class="btn btn-success">Post</button>
+</form>
+
+{% endblock %}

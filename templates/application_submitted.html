@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Application Submitted!</h3>
+
+<p>Your application was sent to:</p>
+
+<b>{{ job.company }}</b><br>
+Email: {{ job.contact_email }}<br>
+Phone: {{ job.contact_phone }}
+
+<p class="mt-3">They will contact you if shortlisted.</p>
+
+<a class="btn btn-primary mt-2" href="/jobs">Back to Jobs</a>
+
+{% endblock %}

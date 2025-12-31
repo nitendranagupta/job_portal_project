@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Upload Resume</h3>
+
+<form method="post" enctype="multipart/form-data">
+
+    <input type="file"
+           name="resume"
+           class="form-control mb-3"
+           required>
+
+    <button class="btn btn-primary">Submit Application</button>
+
+</form>
+
+{% endblock %}

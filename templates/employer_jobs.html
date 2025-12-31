@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>My Jobs</h3>
+
+<ul class="list-group">
+{% for job in jobs %}
+<li class="list-group-item">
+
+    <strong>{{ job.title }}</strong> — {{ job.company }}
+
+    <div class="float-end">
+        <a href="/edit_job/{{ job.id }}" class="btn btn-secondary btn-sm">Edit</a>
+        <a href="/applicants/{{ job.id }}" class="btn btn-info btn-sm">Applicants</a>
+        <a href="/delete_job/{{ job.id }}" class="btn btn-danger btn-sm">Delete</a>
+    </div>
+
+</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Applicants — {{ job.title }}</h3>
+
+<table class="table">
+<tr>
+    <th>Candidate</th>
+    <th>Message</th>
+    <th>Resume</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+
+{% for a in apps %}
+<tr>
+    <td>
+        {{ a.full_name }}<br>
+        {{ a.email }}<br>
+        {{ a.phone }}
+    </td>
+
+    <td>{{ a.message }}</td>
+
+    <td>
+        <a href="/uploads/{{ a.resume }}" download>
+            Download Resume
+        </a>
+    </td>
+
+    <td>{{ a.status }}</td>
+
+    <td>
+        <a href="/update_status/{{ a.id }}/Accepted"
+           class="btn btn-success btn-sm">Accept</a>
+
+        <a href="/update_status/{{ a.id }}/Rejected"
+           class="btn btn-danger btn-sm">Reject</a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

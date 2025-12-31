@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Admin Panel</h3>
+
+<h5>Users</h5>
+<ul class="list-group mb-3">
+
+{% for u in users %}
+<li class="list-group-item">
+
+    {{ u.username }} — {{ u.role }}
+
+    {% if u.active %}
+        <span class="badge bg-success">Active</span>
+    {% else %}
+        <span class="badge bg-danger">Blocked</span>
+    {% endif %}
+
+    <div class="float-end">
+        <a href="/toggle_user/{{ u.id }}" class="btn btn-warning btn-sm">
+            Block / Unblock
+        </a>
+
+        <a href="/delete_user/{{ u.id }}" class="btn btn-danger btn-sm">
+            Delete
+        </a>
+    </div>
+
+</li>
+{% endfor %}
+
+</ul>
+
+<h5>Jobs</h5>
+<ul class="list-group mb-3">
+{% for j in jobs %}
+<li class="list-group-item">
+    {{ j.title }} — {{ j.company }}
+</li>
+{% endfor %}
+</ul>
+
+<h5>Applications</h5>
+<ul class="list-group">
+{% for a in applications %}
+<li class="list-group-item">
+    User {{ a.user_id }} applied to Job {{ a.job_id }}
+    — Status: {{ a.status }}
+</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
