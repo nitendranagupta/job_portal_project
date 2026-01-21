@@ -6,7 +6,7 @@ from models import db, User, Job, Application, SavedJob   # <<< ADDED SavedJob
 import requests, os
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "secret123"
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev_secret_key")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 
 app.config["UPLOAD_FOLDER"] = "uploads"
@@ -35,6 +35,18 @@ def index():
 @app.route("/register", methods=["GET","POST"])
 def register():
     if request.method == "POST":
+        # 🔎 Check if username already exists
+        existing = User.query.filter_by(
+            username=request.form["username"]
+        ).first()
+
+        if existing:
+            return render_template(
+                "register.html",
+                error="Username already exists"
+            )
+
+        # ✅ Create new user
         user = User(
             username=request.form["username"],
             password=generate_password_hash(request.form["password"]),
@@ -43,7 +55,9 @@ def register():
         db.session.add(user)
         db.session.commit()
         return redirect(url_for("login"))
+
     return render_template("register.html")
+
 
 
 # ---------- LOGIN ----------
@@ -146,6 +160,12 @@ def apply(job_id):
         return redirect(url_for("jobs"))
 
     if request.method == "POST":
+        existing = Application.query.filter_by(
+            user_id=current_user.id,
+            job_id=job_id
+        ).first()
+        if existing:
+            return redirect(url_for("my_applications"))
         file = request.files["resume"]
         filename = secure_filename(f"{current_user.id}_{job_id}_{file.filename}")
         file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
@@ -322,6 +342,10 @@ def my_applications():
 @app.route("/admin")
 @login_required
 def admin():
+    # 🔐 Restrict access to admin only
+    if current_user.role != "admin":
+        return redirect(url_for("index"))
+
     return render_template(
         "admin.html",
         users=User.query.all(),

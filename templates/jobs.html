@@ -6,23 +6,23 @@
 <form method="get" class="row g-2 mb-4">
     <div class="col-md-4">
         <input class="form-control"
-               name="search"
-               placeholder="Job title or company"
-               value="{{ request.args.get('search','') }}">
+            name="search"
+            placeholder="Job title or company"
+            value="{{ request.args.get('search','') }}">
     </div>
 
     <div class="col-md-3">
         <input class="form-control"
-               name="location"
-               placeholder="Location"
-               value="{{ request.args.get('location','') }}">
+            name="location"
+            placeholder="Location"
+            value="{{ request.args.get('location','') }}">
     </div>
 
     <div class="col-md-3">
         <input class="form-control"
-               name="category"
-               placeholder="Category"
-               value="{{ request.args.get('category','') }}">
+            name="category"
+            placeholder="Category"
+            value="{{ request.args.get('category','') }}">
     </div>
 
     <div class="col-md-2">
@@ -38,7 +38,7 @@
 {% for job in jobs %}
 <li class="list-group-item">
 
-    <h5>{{ job.title }}</h5>
+    <h5 class="text-primary">{{ job.title }}</h5>
 
     <p>
         <strong>{{ job.company }}</strong>
@@ -64,9 +64,9 @@
     {% else %}
 
         <a href="{{ job.url }}"
-           target="_blank"
-           class="btn btn-success btn-sm float-end">
-           Apply
+            target="_blank"
+            class="btn btn-success btn-sm float-end">
+            Apply
         </a>
     {% endif %}
 

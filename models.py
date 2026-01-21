@@ -18,16 +18,15 @@ class Job(db.Model):
     salary = db.Column(db.String(50))
     category = db.Column(db.String(100))
     description = db.Column(db.Text)
-    employer_id = db.Column(db.Integer)
-
+    employer_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     # NEW
     contact_email = db.Column(db.String(120))
     contact_phone = db.Column(db.String(20))
 
 class Application(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer)
-    job_id = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    job_id = db.Column(db.Integer, db.ForeignKey("job.id"))
     status = db.Column(db.String(20), default="Pending")
     resume = db.Column(db.String(200))
 
@@ -40,5 +39,5 @@ class Application(db.Model):
 
 class SavedJob(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer)
-    job_id = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    job_id = db.Column(db.Integer, db.ForeignKey("job.id"))

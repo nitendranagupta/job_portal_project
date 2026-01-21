@@ -1,3 +1,6 @@
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
 {% extends "base.html" %}
 {% block content %}
 
@@ -5,15 +8,15 @@
 
 <form method="post">
     <input class="form-control mb-2"
-           name="username"
-           placeholder="Username"
-           required>
+        name="username"
+        placeholder="Username"
+        required>
 
     <input class="form-control mb-2"
-           type="password"
-           name="password"
-           placeholder="Password"
-           required>
+        type="password"
+        name="password"
+        placeholder="Password"
+        required>
 
     <select class="form-control mb-2" name="role" required>
         <option value="jobseeker">Job Seeker</option>
